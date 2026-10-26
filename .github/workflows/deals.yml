@@ -25,6 +25,7 @@ jobs:
     env:
       TZ: Asia/Almaty
       CITY_ID: "3"   # Астана
+      MAX_POSTS: "130"
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHANNEL: ${{ vars.TELEGRAM_CHANNEL }}
     steps:
