@@ -157,10 +157,52 @@ def tg(cfg, method, payload):
     return {"ok": False}
 
 
+def download(url):
+    """Картинку скачиваем сами: Telegram не может забрать её с media.marwin.kz по ссылке."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = r.read()
+            return data if 0 < len(data) < 10_000_000 else None
+    except (urllib.error.URLError, TimeoutError) as e:
+        log(f"картинка не скачалась: {e}")
+        return None
+
+
+def tg_photo_upload(cfg, photo_bytes, filename, cap):
+    boundary = "----marwin" + str(int(time.time() * 1000))
+    parts = []
+    for name, value in (("chat_id", cfg["channel"]), ("caption", cap), ("parse_mode", "HTML")):
+        parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode())
+    parts.append(f'--{boundary}\r\nContent-Disposition: form-data; name="photo"; filename="{filename}"\r\n'
+                 f'Content-Type: application/octet-stream\r\n\r\n'.encode() + photo_bytes + b"\r\n")
+    parts.append(f"--{boundary}--\r\n".encode())
+    url = f"https://api.telegram.org/bot{cfg['bot_token']}/sendPhoto"
+    for attempt in range(4):
+        req = urllib.request.Request(url, data=b"".join(parts),
+                                     headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            info = json.loads(e.read().decode() or "{}")
+            retry = (info.get("parameters") or {}).get("retry_after")
+            if e.code == 429 and retry:
+                time.sleep(retry + 1)
+                continue
+            return info
+        except urllib.error.URLError as e:
+            log(f"Telegram ошибка сети: {e}")
+            time.sleep(5)
+    return {"ok": False}
+
+
 def post(cfg, item, description):
     cap = caption(item, description)
     if item.get("image"):
-        res = tg(cfg, "sendPhoto", {"photo": item["image"], "caption": cap, "parse_mode": "HTML"})
+        data = download(item["image"])
+        res = tg_photo_upload(cfg, data, item["image"].rsplit("/", 1)[-1] or "photo.jpg", cap) if data else \
+            tg(cfg, "sendPhoto", {"photo": item["image"], "caption": cap, "parse_mode": "HTML"})
         if res.get("ok"):
             return True
         log(f"sendPhoto не прошёл ({res.get('description')}), шлю текстом")
