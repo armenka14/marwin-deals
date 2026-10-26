@@ -6,6 +6,7 @@
 Настройки через переменные окружения (см. CONFIG ниже).
 """
 import html
+import http.client
 import json
 import os
 import sys
@@ -47,7 +48,7 @@ class Marwin:
         self.delay = delay
         self._last = 0.0
 
-    def get(self, path, params=None, retries=3):
+    def get(self, path, params=None, retries=5):
         url = BASE + path + ("?" + urllib.parse.urlencode(params) if params else "")
         for attempt in range(retries):
             wait = self._last + self.delay - time.monotonic()
@@ -58,9 +59,9 @@ class Marwin:
             try:
                 with urllib.request.urlopen(req, timeout=30) as r:
                     return json.loads(r.read().decode("utf-8"))
-            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as e:
+            except (OSError, http.client.HTTPException, json.JSONDecodeError) as e:  # URLError, сброс соединения и т.п.
                 log(f"GET {path} ошибка ({attempt + 1}/{retries}): {e}")
-                time.sleep(3 * (attempt + 1))
+                time.sleep([5, 20, 45, 90, 0][attempt])  # сайт иногда рвёт соединение - ждём дольше
         raise RuntimeError(f"Marwin API недоступен: {path}")
 
     def top_categories(self):
