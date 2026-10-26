@@ -39,9 +39,12 @@ class Base(unittest.TestCase):
         self.sent = []
         self.p = mock.patch.object(m, "tg", lambda cfg, meth, payload: self.sent.append((meth, payload)) or {"ok": True})
         self.p.start()
+        self.pd = mock.patch.object(m, "download", lambda url: None)  # без сети
+        self.pd.start()
 
     def tearDown(self):
         self.p.stop()
+        self.pd.stop()
         self.tmp.cleanup()
 
     def photos(self):
