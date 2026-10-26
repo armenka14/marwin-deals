@@ -30,7 +30,7 @@ CONFIG = {
     "first_run_posts": int(os.environ.get("FIRST_RUN_POSTS", "10")),  # при первом запуске: топ-N
     "bot_token": os.environ.get("TELEGRAM_BOT_TOKEN", "").strip(),
     "channel": os.environ.get("TELEGRAM_CHANNEL", "").strip(),             # @username канала или -100…
-    "request_delay": 0.4,
+    "request_delay": float(os.environ.get("REQUEST_DELAY", "1.5")),  # пауза между запросами к сайту, сек
 }
 UA = "marwin-deals-bot/1.0 (personal Telegram deals notifier)"
 
