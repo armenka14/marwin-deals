@@ -1,0 +1,47 @@
+name: marwin-deals
+
+on:
+  schedule:
+    - cron: "23 * * * *"   # каждый час в :23
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "run = постить, dry = только показать"
+        default: run
+        type: choice
+        options: [run, dry]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: marwin-deals
+  cancel-in-progress: false
+
+jobs:
+  deals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Almaty
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL: ${{ vars.TELEGRAM_CHANNEL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tests
+        run: python test_deals.py
+      - name: Deals
+        run: python marwin_deals.py "${{ github.event.inputs.mode || 'run' }}"
+      - name: Save state
+        if: always()
+        run: |
+          git config user.name "deals-bot"
+          git config user.email "deals-bot@users.noreply.github.com"
+          [ -f seen.json ] && git add seen.json
+          [ -f deals.log ] && tail -n 2000 deals.log > deals.tmp && mv deals.tmp deals.log && git add deals.log
+          git diff --cached --quiet && exit 0
+          git commit -m "state $(date '+%F %H:%M')"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done
