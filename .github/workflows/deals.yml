@@ -1,8 +1,6 @@
 name: marwin-deals
 
 on:
-  schedule:
-    - cron: "23 * * * *"   # каждый час в :23
   workflow_dispatch:
     inputs:
       mode:
@@ -25,7 +23,7 @@ jobs:
     env:
       TZ: Asia/Almaty
       CITY_ID: "3"   # Астана
-      MAX_POSTS: "130"
+      MAX_POSTS: "40"   # запуск каждые 2 часа (cron-job.org), 08:23-22:23
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHANNEL: ${{ vars.TELEGRAM_CHANNEL }}
     steps:
