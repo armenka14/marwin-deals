@@ -410,3 +410,7 @@
 2026-11-13 18:27:31  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
 2026-11-13 18:28:29  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
 2026-11-13 18:29:11  Отправлено: 40; осталось в очереди: 450
+2026-11-13 20:24:25  Со скидкой >10%: 2319; новых/подешевевших: 451
+2026-11-13 20:26:04  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
+2026-11-13 20:26:29  GET /v1/catalog/products/192346 ошибка (1/5): HTTP Error 502: Bad Gateway
+2026-11-13 20:29:16  Отправлено: 40; осталось в очереди: 411
