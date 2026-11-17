@@ -495,3 +495,9 @@
 2026-11-17 16:23:37  GET /v1/catalog/categories ошибка (3/5): <urlopen error [Errno 104] Connection reset by peer>
 2026-11-17 16:24:23  GET /v1/catalog/categories ошибка (4/5): <urlopen error [Errno 104] Connection reset by peer>
 2026-11-17 16:25:54  GET /v1/catalog/categories ошибка (5/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-17 18:24:59  Со скидкой >10%: 4059; новых/подешевевших: 1307
+2026-11-17 18:27:15  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
+2026-11-17 18:27:27  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
+2026-11-17 18:28:11  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
+2026-11-17 18:29:58  Telegram ошибка сети: <urlopen error [Errno 104] Connection reset by peer>
+2026-11-17 18:30:07  Отправлено: 40; осталось в очереди: 1267
