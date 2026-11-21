@@ -576,3 +576,6 @@
 2026-11-21 16:23:40  GET /v1/catalog/categories ошибка (3/5): <urlopen error [Errno 104] Connection reset by peer>
 2026-11-21 16:24:26  GET /v1/catalog/categories ошибка (4/5): <urlopen error [Errno 104] Connection reset by peer>
 2026-11-21 16:25:57  GET /v1/catalog/categories ошибка (5/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-21 18:24:18  GET /v1/catalog/products ошибка (1/5): IncompleteRead(88323 bytes read)
+2026-11-21 18:26:16  Со скидкой >10%: 4140; новых/подешевевших: 539
+2026-11-21 18:33:12  Отправлено: 40; осталось в очереди: 499
