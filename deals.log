@@ -592,3 +592,7 @@
 2026-11-22 10:23:39  GET /v1/catalog/categories ошибка (3/5): <urlopen error [Errno 104] Connection reset by peer>
 2026-11-22 10:24:26  GET /v1/catalog/categories ошибка (4/5): <urlopen error [Errno 104] Connection reset by peer>
 2026-11-22 10:25:56  GET /v1/catalog/categories ошибка (5/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-22 12:25:10  Со скидкой >10%: 4207; новых/подешевевших: 458
+2026-11-22 12:27:36  sendPhoto не прошёл (Bad Request: IMAGE_PROCESS_FAILED), шлю текстом
+2026-11-22 12:27:46  sendPhoto не прошёл (Bad Request: IMAGE_PROCESS_FAILED), шлю текстом
+2026-11-22 12:30:11  Отправлено: 40; осталось в очереди: 418
