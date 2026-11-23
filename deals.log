@@ -618,3 +618,8 @@
 2026-11-23 14:25:20  GET /v1/catalog/products/2979 ошибка (1/5): HTTP Error 502: Bad Gateway
 2026-11-23 14:25:25  GET /v1/catalog/products/2979 ошибка (2/5): HTTP Error 502: Bad Gateway
 2026-11-23 14:30:07  Отправлено: 40; осталось в очереди: 115
+2026-11-23 16:23:13  GET /v1/catalog/categories ошибка (1/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-23 16:23:19  GET /v1/catalog/categories ошибка (2/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-23 16:23:40  GET /v1/catalog/categories ошибка (3/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-23 16:24:26  GET /v1/catalog/categories ошибка (4/5): <urlopen error [Errno 104] Connection reset by peer>
+2026-11-23 16:25:57  GET /v1/catalog/categories ошибка (5/5): <urlopen error [Errno 104] Connection reset by peer>
